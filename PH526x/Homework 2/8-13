@@ -1,0 +1,67 @@
+#exercise 8
+def diag_win(board,player):
+    return board[0][0]==board[1][1]==board[2][2]==player
+diag_win(board,1)
+
+def play_game():
+    board, winner =create_board(),0
+    while winner ==0:
+        for player in [1,2]:
+            random_place(board,player)
+            evaluate(board)
+            if winner != 0:
+                break
+            return winner
+play_game()
+
+
+#exercise 9
+def evaluate(board):
+    winner = 0
+    for player in [1, 2]:
+        # Check if `row_win`, `col_win`, or `diag_win` apply.  if so, store `player` as `winner`.
+        if row_win(board, player) or diag_win(board, player) or col_win(board, player):
+            return player
+    if np.all(board != 0):
+        winner = -1
+    return winner
+evaluate(board)
+
+#exercise 10 
+def play_game():
+    board, winner = create_board(), 0
+    while winner == 0:
+        for player in [1, 2]:
+            random_place(board, player)
+            evaluate(board)
+            if winner != 0:
+                break
+            return winner
+
+play_game()
+#exercise 11
+import time
+wins=[]
+start=time.time()
+for i in range(0,1000):
+    wins.append(play_game())
+stop=time.time()
+time_elapsed=stop-start
+print (time_elapsed)
+plt.hist(wins)
+plt.show()
+
+
+#ex 12
+def play_strategic_game():
+    board, winner = create_board(), 0
+    board[1,1] = 1
+    while winner == 0:
+        for player in [2,1]:
+            board=random_place(board,player)
+            winner=evaluate(board)
+            if winner != 0:
+                break
+    return winner
+
+play_strategic_game()
